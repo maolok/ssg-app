@@ -42,11 +42,7 @@ export const Navbar = () => {
                             Documentacion
                         </button>
 
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <Link className="dropdown-item" >Action</Link>
-                            <Link className="dropdown-item" >Another action</Link>
-                            <Link className="dropdown-item" >Something else here</Link>
-                        </div>
+                        
                         </NavLink>
 
                         
@@ -58,10 +54,10 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/usuarios"
+                        to="/empleados"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuarios
+                        Empleados
                         </button>         
                     </NavLink>
 
@@ -71,7 +67,10 @@ export const Navbar = () => {
                         exact
                         to="/usuarios"
                     >
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Comites
+                        </button>  
+                        
                     </NavLink>
 
                     <NavLink 
@@ -80,7 +79,9 @@ export const Navbar = () => {
                         exact
                         to="/usuarios"
                     >
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Reportes
+                        </button>  
                     </NavLink>
                     
                     

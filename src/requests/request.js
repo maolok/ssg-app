@@ -3,7 +3,7 @@ export const requests = (data = {}, action ) => {
 
     switch ( action ) {
         case "Login":
-            /*
+            
             console.log("entre aqui");
             axios.post(`https://localhost:5000/users`, {
                 usuario:data.usuario,
@@ -11,7 +11,7 @@ export const requests = (data = {}, action ) => {
             }).then((response) => {
                 return response;
             })
-            */
+            
 
         case "crearusuario":
             return {

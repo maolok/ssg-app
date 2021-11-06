@@ -3,6 +3,7 @@ import { AuthContext } from '../../auth/AuthContext';
 import { types } from '../../types/types';
 import { requests } from '../../requests/request';
 import { useForm } from "react-hook-form";
+import { Bienvenida } from '../Bienvenida/Bienvenida';
 
 
 export const LoginScreen = ({ history }) => {
@@ -17,7 +18,7 @@ export const LoginScreen = ({ history }) => {
       let response = requests(data,"Login");
       console.log(response);
 
-        const lastPath = localStorage.getItem('lastPath') || '/';
+        const lastPath = '/bienvenida';
 
 
         dispatch({
