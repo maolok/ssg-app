@@ -34,23 +34,23 @@ export const LoginScreen = ({ history }) => {
 
     return (
 
-        <div class="container">
+        <div className="container">
         <br/>
         <br/>
         <br/>
-        <div class="row">
-            <div class="col-md-4 offset-md-4">
-            <div class="card text-center card  bg-default mb-3">
-              <div class="card-header">
+        <div className="row">
+            <div className="col-md-4 offset-md-4">
+            <div className="card text-center card  bg-default mb-3">
+              <div className="card-header">
                 INGRESO SSG-APP
               </div>
-              <div class="card-body">
-                   <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="Usuario" {...register("usuario", { required: true })} />
+              <div className="card-body">
+                   <input type="text" id="userName" className="form-control input-sm chat-input" placeholder="Usuario" {...register("usuario", { required: true })} />
                 <br/>
-                <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="Contraseña" {...register("clave", { required: true})} />
+                <input type="password" id="userPassword" className="form-control input-sm chat-input" placeholder="Contraseña" {...register("clave", { required: true})} />
               </div>
-              <div class="card-footer text-muted">
-                <a href="#" class="btn btn-secondary" onClick={ handleSubmit(handleLogin) }>ENTRAR</a>
+              <div className="card-footer text-muted">
+                <a href="#" className="btn btn-secondary" onClick={ handleSubmit(handleLogin) }>ENTRAR</a>
               </div>
             </div>
         </div>

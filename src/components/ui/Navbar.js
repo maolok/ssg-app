@@ -25,7 +25,7 @@ export const Navbar = () => {
                 className="navbar-brand" 
                 to="/"
             >
-                Modulos
+                Inicio
             </Link>
 
             <div className="navbar-collapse">
@@ -65,7 +65,7 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/usuarios"
+                        to="/comites"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Comites
@@ -77,11 +77,56 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/usuarios"
+                        to="/reportes"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Reportes
                         </button>  
+                    </NavLink>
+
+                    <NavLink 
+                        activeClassName="active"
+                        className="nav-item nav-link" 
+                        exact
+                        to="/empleados"
+                    >
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Proveedores
+                        </button>         
+                    </NavLink>
+
+
+                    <NavLink 
+                        activeClassName="active"
+                        className="nav-item nav-link" 
+                        exact
+                        to="/empleados"
+                    >
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Parametros
+                        </button>         
+                    </NavLink>
+
+                    <NavLink 
+                        activeClassName="active"
+                        className="nav-item nav-link" 
+                        exact
+                        to="/empleados"
+                    >
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Quejas
+                        </button>         
+                    </NavLink>
+
+                    <NavLink 
+                        activeClassName="active"
+                        className="nav-item nav-link" 
+                        exact
+                        to="/empleados"
+                    >
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Matrices
+                        </button>         
                     </NavLink>
                     
                     

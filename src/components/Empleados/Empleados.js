@@ -43,7 +43,7 @@ export const Empleados = () => {
                         exact
                         to="/empleados/crear"
                     >
-                        <button className="btn btn-info">Crear</button>
+                        <button className="btn btn-info">Nuevo Empleado</button>
             </Link>
             
             <hr/>
