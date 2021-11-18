@@ -5,15 +5,15 @@ export const requests = (data = {}, action ) => {
         case "Login":
             
             console.log("entre aqui");
-            axios.post(`https://localhost:5000/users`, {
-                usuario:data.usuario,
-                clave:data.clave
+            axios.post(`http://192.34.58.242:8080/sg-sst/login`, {
+                password:data.clave,
+                usuario:data.usuario
             }).then((response) => {
                 return response;
             })
             
 
-        case "crearusuario":
+        case "crearEmpleado":
             return {
                 logged: false
             }

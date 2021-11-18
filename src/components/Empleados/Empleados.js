@@ -54,7 +54,9 @@ export const Empleados = () => {
       <th scope="col">Nombre</th>
       <th scope="col">Apellido</th>
       <th scope="col">Cedula</th>
-      <th scope="col">Accion</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Eliminar</th>
+      <th scope="col">Carpeta</th>
     </tr>
   </thead>
   <tbody>
@@ -78,6 +80,30 @@ export const Empleados = () => {
                     
                     
                     </td>
+                    <td>
+                    
+                     
+                    <button className="btn" ><i class="fa fa-trash"></i><b>Eliminar</b></button>
+                    
+                    
+                    </td>
+                    <td>
+                    
+    
+                    <Link 
+                    className="navbar-brand" 
+                    to={{
+                        pathname: "/documentacion/empleado/"+usuario.nombre+" "+usuario.apellido+"/"+usuario.cc,
+                    }}
+                    >
+                        <button class="btn"><i class="fa fa-folder"></i><b>Carpeta</b></button>
+
+                        
+                        
+                    </Link>
+                    
+                    
+                    </td>
                 </tr>)
 
           })
@@ -93,7 +119,7 @@ export const Empleados = () => {
     props={data[0]}
 
     
-    /> : console.log("aaa")
+    /> : console.log("")
 }
 
 

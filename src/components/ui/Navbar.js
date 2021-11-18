@@ -31,22 +31,7 @@ export const Navbar = () => {
             <div className="navbar-collapse">
                 <div className="navbar-nav">
 
-                <div className="dropdown">
-                       <NavLink 
-                        activeClassName="active"
-                        className="nav-item nav-link" 
-                        exact
-                        to="/documentacion"
-                        >
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Documentacion
-                        </button>
-
-                        
-                        </NavLink>
-
-                        
-                </div>
+                
                     
                         
 
@@ -60,6 +45,20 @@ export const Navbar = () => {
                         Empleados
                         </button>         
                     </NavLink>
+
+                    <NavLink 
+                        activeClassName="active"
+                        className="nav-item nav-link" 
+                        exact
+                        to="/documentacion"
+                        >
+
+                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Documentacion
+                        </button>  
+                    </NavLink>
+
+                        
 
                     <NavLink 
                         activeClassName="active"
@@ -88,7 +87,7 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/empleados"
+                        to="/proveedores"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Proveedores
@@ -100,7 +99,7 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/empleados"
+                        to="/parametros"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Parametros
@@ -111,7 +110,7 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/empleados"
+                        to="/quejas"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Quejas
@@ -122,7 +121,7 @@ export const Navbar = () => {
                         activeClassName="active"
                         className="nav-item nav-link" 
                         exact
-                        to="/empleados"
+                        to="/matrices"
                     >
                         <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Matrices
