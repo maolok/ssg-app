@@ -1,7 +1,8 @@
 import React,{useEffect,useState} from 'react'
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory,useParams } from 'react-router-dom';
 import { AsignarUsuario } from './AsignarUsuario';
 import { Modalview } from './Modal';
+
 
 
 export const Empleados = () => {
@@ -9,9 +10,21 @@ export const Empleados = () => {
     const [modal, setmodal] = useState(false);
     const [user, setuser] = useState({});
 
-    const handleUser = (userdata)=>{
-        setmodal(!modal);
+
+    useEffect(() => {
+
+        //setmodal(true);
+        
+      },[user]);
+
+    
+    const EditarUser= (userdata)=>{
+        setmodal(true);
         //setuser(userdata.cc);
+    }
+    const handleDelete = (userdata)=>{
+        //peticion para borrar empleado
+        alert(userdata.id);
     }
 
     const data = [
@@ -55,6 +68,7 @@ export const Empleados = () => {
       <th scope="col">Apellido</th>
       <th scope="col">Cedula</th>
       <th scope="col">Usuario</th>
+      <th scope="col">Editar</th>
       <th scope="col">Eliminar</th>
       <th scope="col">Carpeta</th>
     </tr>
@@ -72,18 +86,35 @@ export const Empleados = () => {
                 <td>
                     {usuario.usuariocreado ? 
                     
-                    <b>Tiene Usuario</b> 
+                    <button className="btn btn-warning" onClick={() => {setuser(usuario); setmodal(true)}}>Editar Usuario</button>
     
                      : 
                      
-                    <button className="btn btn-info" onClick={handleUser}>Asignar Usuario</button>}
+                    <button className="btn btn-success" onClick={() => {setuser(usuario); setmodal(true)}}>Asignar Usuario</button>}
                     
                     
                     </td>
                     <td>
                     
+                        <Link 
+                        className="navbar-brand" 
+                        to={{
+                            pathname: "/empleados/editar/"+usuario.cc+"/"+usuario.id
+                        }}
+                        >
+                        <button className="btn" ><i class="fa fa-pencil"></i><b>Editar</b></button>
+
+                            
+                            
+                        </Link>
+                    
+                    
+                    </td>
+                    
+                    <td>
+                    
                      
-                    <button className="btn" ><i class="fa fa-trash"></i><b>Eliminar</b></button>
+                    <button className="btn" onClick={handleDelete}><i class="fa fa-trash"></i><b>Eliminar</b></button>
                     
                     
                     </td>
@@ -116,10 +147,10 @@ export const Empleados = () => {
 {
     modal ? <Modalview
     
-    props={data[0]}
+    cc={user.cc}
 
     
-    /> : console.log("")
+    /> : console.log()
 }
 
 

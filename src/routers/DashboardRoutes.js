@@ -16,6 +16,7 @@ import { Proveedores } from '../components/proveedores/Proveedores';
 import { Parametros } from '../components/parametros/Parametros';
 import { Quejas } from '../components/quejas/Quejas';
 import { Matrices } from '../components/matrices/Matrices';
+import { EditarEmpleado } from '../components/Empleados/EditarEmpleado';
 
 export const DashboardRoutes = () => {
     
@@ -33,6 +34,7 @@ export const DashboardRoutes = () => {
                     <Route exact path="/documentacion/empleado/:nombre/:cc" component={ DocumentacionPorEmpleado} />
                     <Route exact path="/documentacion/empresa/:nombre/:nit" component={ DocumentacionPorProveedor} />
                     <Route exact path="/empleados/crear" component={ CrearEmpleado } />
+                    <Route exact path="/empleados/editar/:cc/:id" component={ EditarEmpleado } />
                     <Route exact path="/asignarusuario" component={ CrearEmpleado } />
                     <Route exact path="/bienvenida" component={ Bienvenida } />
                     <Route exact path="/comites" component={ Comites } />

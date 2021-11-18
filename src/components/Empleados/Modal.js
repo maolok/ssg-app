@@ -22,7 +22,7 @@ export const Modalview = (props) => {
 
       
     return (
-        <div>
+        <div className="container">
       
             <Modal
                 isOpen={open}
@@ -31,8 +31,7 @@ export const Modalview = (props) => {
                 
                 
             >
-                <h2>Asignar usuario a: </h2>
-                {props.cc}      
+                <h2>Asignar usuario a: {props.cc}  </h2>    
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3 col-lg-3 col-md-4">
                     <label htmlFor="username" className="form-label" >Nombre Usuario</label>

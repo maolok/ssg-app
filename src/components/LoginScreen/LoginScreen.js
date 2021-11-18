@@ -14,9 +14,10 @@ export const LoginScreen = ({ history }) => {
 
   const logo_estilo = {
         
-    height : 100,
-    width : 100,
-    borderRadius: 5
+    height : 300,
+    width : 300,
+    marginTop : 50
+    
     
      
 
@@ -24,7 +25,7 @@ export const LoginScreen = ({ history }) => {
 
   const linea_estilo = {
     borderLeft:    '1px solid hsla(200, 10%, 50%,100)',
-    height:         '30vh',
+    height:         '35vh',
     width:          1   
   };
 
@@ -80,8 +81,10 @@ export const LoginScreen = ({ history }) => {
         <br/>
         <br/>
         <br/>
+        <br/>
+        <br/>
         <div className="row">
-            <div className="col-md-4 offset-md-4">
+            <div className="col-md-4 offset-md-2 mt-5">
             <div className="card text-center card  bg-default mb-3">
               <div className="card-header">
                 INGRESO SSG-APP
@@ -95,10 +98,14 @@ export const LoginScreen = ({ history }) => {
                 <a href="#" className="btn btn-secondary" onClick={ handleSubmit(handleLogin) }>ENTRAR</a>
               </div>
             </div>
-            <hr style={linea_estilo}/>
+            
+            
             
           </div>
-          <div className="row mb-3">
+          <div className="col-1">
+              <hr style={linea_estilo}/>
+            </div>
+          <div className="col-1">
               <img src={logo} alt={"logo"} className="img-responsive " style={logo_estilo}/>
            </div>
         </div>

@@ -1,9 +1,17 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { Link, NavLink, useHistory,useParams } from 'react-router-dom';
 
 
-export const CrearEmpleado = () => {
-    
+export const EditarEmpleado = () => {
+
+    const data = {
+            primernombre : 'Esteban',
+            segundonombre : "Mauricio"
+            
+        } //data de peticion de cada empleado por id o cedula puede ser en un useeffect
+    let { id,cc } = useParams();
+
     const { register, handleSubmit } = useForm();
     
     const onSubmit = (data) => {
@@ -12,18 +20,18 @@ export const CrearEmpleado = () => {
 
     return (
         <div className='container'>
-            <h1>Crear Empleado</h1>
+            <h1>Editando Empleado cedula {cc} con id {id}</h1>
             <hr />
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">
                     <div className="mb-3 col-md-5">
                         <label htmlFor="name" className="form-label">Primer Nombre</label>
-                        <input type="text" className="form-control" id="name" {...register("primer_nombre", { required: true, maxLength: 20, pattern: /^[A-Za-z]+$/i})} />
+                        <input type="text" className="form-control" id="name" value={data.primernombre} {...register("primer_nombre", { required: true, maxLength: 20, pattern: /^[A-Za-z]+$/i})} />
                     </div>
                     <div className="mb-3 col-md-4">
                         <label htmlFor="name" className="form-label">Segundo Nombre</label>
-                        <input type="text" className="form-control" id="name" {...register("segundo_nombre", { required: false, maxLength: 20, pattern: /^[A-Za-z]+$/i })} />
+                        <input type="text" className="form-control" id="name" value={data.segundonombre} {...register("segundo_nombre", { required: false, maxLength: 20, pattern: /^[A-Za-z]+$/i })} />
                     </div>
                 </div>
 
@@ -173,7 +181,7 @@ export const CrearEmpleado = () => {
                     </div>
             
                 </div>
-                <button className="btn btn-primary mb-3 col-sm-2">Registrar</button>
+                <button className="btn btn-primary mb-3 col-sm-2">Guardar</button>
 
 
             </form>
