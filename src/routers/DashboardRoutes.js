@@ -31,7 +31,7 @@ export const DashboardRoutes = () => {
                     <Route exact path="/documentacion/empleados" component={ DocumentacionEmpleados } />
                     <Route exact path="/documentacion/empresa" component={ DocumentacionEmpresa } />
                     <Route exact path="/documentacion/proveedores" component={ DocumentacionProveedores} />
-                    <Route exact path="/documentacion/empleado/:nombre/:cc" component={ DocumentacionPorEmpleado} />
+                    <Route exact path="/documentacion/empleado/:nombre/:id" component={ DocumentacionPorEmpleado} />
                     <Route exact path="/documentacion/empresa/:nombre/:nit" component={ DocumentacionPorProveedor} />
                     <Route exact path="/empleados/crear" component={ CrearEmpleado } />
                     <Route exact path="/empleados/editar/:cc/:id" component={ EditarEmpleado } />

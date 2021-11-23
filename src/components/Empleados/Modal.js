@@ -18,6 +18,7 @@ export const Modalview = (props) => {
         
         
         setopen(false);
+        props.modalstate(false);
       }
 
       
@@ -31,7 +32,9 @@ export const Modalview = (props) => {
                 
                 
             >
-                <h2>Asignar usuario a: {props.cc}  </h2>    
+                
+                
+                <h2>Asignar usuario a: {props.nombre} - {props.cc}</h2>    
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3 col-lg-3 col-md-4">
                     <label htmlFor="username" className="form-label" >Nombre Usuario</label>
@@ -43,17 +46,72 @@ export const Modalview = (props) => {
                 </div>
                 
                 <div className="mb-3 col-lg-3 col-md-4">
-                <select className="form-select" aria-label="Default select example" {...register("rol", { required: true})}>
-                    <option selected>Rol</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+                <label>Roles:</label>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck1" {...register("1")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Responsable SG-SST
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck2" {...register("2")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Copassst
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck3" {...register("3")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Cocola
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck4" {...register("4")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Brigada Emergencia
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck5" {...register("5")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Presidente Copasst
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck6" {...register("6")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Presidente Cocola
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck7" {...register("7")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Presidente BE
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck8" {...register("8")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Empleado
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck9" {...register("9")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Lider con Personal a cargo
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="defaultCheck10" {...register("10")}/>
+                    <label class="form-check-label" for="defaultCheck1">
+                        Empleador
+                    </label>
+                    </div>
                 </div>
         
-                <button className="btn btn-primary mb-3 col-lg-3 col-md-4">Registrar</button>
+                <button className="btn btn-primary mb-3 col-lg-3 col-md-4">Crear</button>
             </form>
-
+            
             <button className="btn btn-primary mb-3 col-lg-3 col-md-4" onClick={closeModal}>Cerrar</button>
 
             </Modal>

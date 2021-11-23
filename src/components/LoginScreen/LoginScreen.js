@@ -1,16 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext,useState,useEffect } from 'react';
 import { AuthContext } from '../../auth/AuthContext';
 import { types } from '../../types/types';
 import { requests } from '../../requests/request';
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Bienvenida } from '../Bienvenida/Bienvenida';
 import logo from "../../estaticos/logo2.png"
 import axios from 'axios';
+import { stringify } from 'query-string';
 
 
 export const LoginScreen = ({ history }) => {
   
-  let bodyFormData = new FormData();
+  const [usuario,setuser] = useState("");
+  const [clave,setpass] = useState("");
+
+
+  
 
   const logo_estilo = {
         
@@ -25,7 +30,7 @@ export const LoginScreen = ({ history }) => {
 
   const linea_estilo = {
     borderLeft:    '1px solid hsla(200, 10%, 50%,100)',
-    height:         '35vh',
+    height:         '50vh',
     width:          1   
   };
 
@@ -33,12 +38,17 @@ export const LoginScreen = ({ history }) => {
 
     const { dispatch } = useContext( AuthContext );
 
-    const handleLogin = (data) => {
 
-      bodyFormData.append('usuario', data.usuario);
-      bodyFormData.append('password', data.clave);
+    const handleLogin = (e) => {
 
 
+      e.preventDefault();
+      //console.log(e);
+     
+
+      let bodyFormData = new FormData()
+      bodyFormData.append('usuario', usuario);
+      bodyFormData.append('password', clave);
       
       axios({
         method: "post",
@@ -47,33 +57,54 @@ export const LoginScreen = ({ history }) => {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then(function (response) {
-          //handle success
-          console.log(response);
+         //console.log((response.data.Datos.permisos));
+
+          if (response.data.Codigo == 1){
+                  const lastPath = '/bienvenida';
+
+                   let nombre = response.data.Datos.usuario[0].primer_nombre +" "+response.data.Datos.usuario[0].primer_apellido;
+                    dispatch({
+                        type: types.login,
+                        payload: {
+                            name: nombre,
+                            permisos : response.data.Datos.permisos
+                        }
+                    });
+
+                 localStorage.setItem('token', response.data.Datos.token);
+
+                  history.replace( lastPath );
+
+  
+          }else{
+            alert("Usuario o Contraseña Incorrecta");
+          }
+            
+
+
+
         })
         .catch(function (response) {
           //handle error
-          console.log(response);
+          console.log("fail");
+          alert("Error conectando al Servidor");
+          
         });
-    
+       
+        
 
-
-      //console.log(data);
-      //let response = requests(data,"Login");
-      //console.log(response);
-
-        const lastPath = '/bienvenida';
-
-
-        dispatch({
-            type: types.login,
-            payload: {
-                name: 'Esteban'
-            }
-        });
-
-        history.replace( lastPath );
        
     }
+  
+    const updateInputValue= (evt) => {
+      
+       setuser(evt.target.value);
+    }
+
+    const updateInputValue2= (evt) => {
+      
+      setpass(evt.target.value);
+  }
 
     return (
 
@@ -89,14 +120,19 @@ export const LoginScreen = ({ history }) => {
               <div className="card-header">
                 INGRESO SSG-APP
               </div>
+              <form onSubmit={handleLogin}>
               <div className="card-body">
-                   <input type="text" id="userName" className="form-control input-sm chat-input" placeholder="Usuario" {...register("usuario", { required: true })} />
+                  <div className="inner-addon left-addon">
+                    <i className="fa fa-user"></i>
+                    <input type="text" id="userName" className="form-control input-sm chat-input" placeholder="Usuario" onChange={evt => updateInputValue(evt)} required />
+                  </div>
                 <br/>
-                <input type="password" id="userPassword" className="form-control input-sm chat-input" placeholder="Contraseña" {...register("clave", { required: true})} />
+                <input type="password" id="userPassword" className="form-control input-sm chat-input" placeholder="Contraseña" onChange={evt => updateInputValue2(evt)} required />
               </div>
               <div className="card-footer text-muted">
-                <a href="#" className="btn btn-secondary" onClick={ handleSubmit(handleLogin) }>ENTRAR</a>
+                <input type="submit" value="ENTRAR" className="btn btn-info"/>
               </div>
+              </form>
             </div>
             
             

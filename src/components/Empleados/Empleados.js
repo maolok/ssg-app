@@ -2,47 +2,53 @@ import React,{useEffect,useState} from 'react'
 import { Link, NavLink, useHistory,useParams } from 'react-router-dom';
 import { AsignarUsuario } from './AsignarUsuario';
 import { Modalview } from './Modal';
-
+import { ModalEditar } from './ModalEditar';
+import axios from 'axios';
 
 
 export const Empleados = () => {
 
     const [modal, setmodal] = useState(false);
+    const [modaleditar, setmodaleditar] = useState(false);
     const [user, setuser] = useState({});
+    const [empleadosdata,setempleadosdata] = useState([]);
 
 
-    useEffect(() => {
-
-        //setmodal(true);
-        
-      },[user]);
-
-    
-    const EditarUser= (userdata)=>{
-        setmodal(true);
-        //setuser(userdata.cc);
-    }
     const handleDelete = (userdata)=>{
         //peticion para borrar empleado
         alert(userdata.id);
     }
+    const handleModal = (modalstate) => {
+        setmodal(modalstate);
+    }
+    const handleModalEditar = (modalstate) => {
+        setmodaleditar(modalstate);
+    }
 
-    const data = [
-        {
-            id : 1,
-            nombre: "esteban",
-            apellido : "muñoz",
-            cc : "123456789",
-            usuariocreado : false
-        },
-        {
-            id: 2,
-            nombre:"pepito",
-            apellido:"perez",
-            cc:"987654321",
-            usuariocreado: true
 
-        }]
+        let token = localStorage.getItem("token");
+        useEffect(() => {
+            axios({
+
+                method: "get",
+                url: "http://192.34.58.242:8080/sg-sst/empleado",
+                headers : {Authorization:token}
+              })
+                .then(function (response) {
+                 console.log(response.data.Datos);
+        
+                  if (response.data.Codigo == 1){
+                         setempleadosdata(response.data.Datos);  
+                  }
+                    
+                })
+                .catch(function (response) {
+                  //handle error
+                  console.log("fail");
+                  alert("Error conectando al Servidor");
+                  
+                });
+          },[]);
 
         
 
@@ -75,18 +81,18 @@ export const Empleados = () => {
   </thead>
   <tbody>
       {
-          data.map((usuario) => {
+          empleadosdata.map((usuario) => {
             
             return(
                 <tr>
                 <th scope="row" key={usuario.id}>{usuario.id}</th>
-                <td >{usuario.nombre}</td>
-                <td>{usuario.apellido}</td>
-                <td>{usuario.cc}</td>
+                <td >{usuario.primer_nombre}</td>
+                <td>{usuario.primer_apellido}</td>
+                <td>{usuario.identificacion}</td>
                 <td>
-                    {usuario.usuariocreado ? 
+                    {usuario.es_instructor ? 
                     
-                    <button className="btn btn-warning" onClick={() => {setuser(usuario); setmodal(true)}}>Editar Usuario</button>
+                    <button className="btn btn-warning" onClick={() => {setuser(usuario); setmodaleditar(true)}}>Editar Usuario</button>
     
                      : 
                      
@@ -99,7 +105,7 @@ export const Empleados = () => {
                         <Link 
                         className="navbar-brand" 
                         to={{
-                            pathname: "/empleados/editar/"+usuario.cc+"/"+usuario.id
+                            pathname: "/empleados/editar/"+usuario.identificacion+"/"+usuario.id
                         }}
                         >
                         <button className="btn" ><i class="fa fa-pencil"></i><b>Editar</b></button>
@@ -124,10 +130,10 @@ export const Empleados = () => {
                     <Link 
                     className="navbar-brand" 
                     to={{
-                        pathname: "/documentacion/empleado/"+usuario.nombre+" "+usuario.apellido+"/"+usuario.cc,
+                        pathname: "/documentacion/empleado/"+usuario.primer_nombre+" "+usuario.primer_apellido+"/"+usuario.id,
                     }}
                     >
-                        <button class="btn"><i class="fa fa-folder"></i><b>Carpeta</b></button>
+                        <button class="btn"><i class="fa fa-folder"></i><b>Documentos</b></button>
 
                         
                         
@@ -147,10 +153,27 @@ export const Empleados = () => {
 {
     modal ? <Modalview
     
-    cc={user.cc}
+    cc={user.identificacion}
+    id={user.id}
+    nombre={user.primer_nombre}
+    isuser={user.es_instructor}
+    modalstate={handleModal}
 
     
-    /> : console.log()
+    /> : ""
+}
+
+{
+    modaleditar ? <ModalEditar
+    
+    cc={user.identificacion}
+    id={user.id}
+    nombre={user.primer_nombre}
+    isuser={user.es_instructor}
+    modalstate={handleModalEditar}
+
+    
+    /> : ""
 }
 
 

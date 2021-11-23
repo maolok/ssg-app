@@ -22,7 +22,3 @@ export const PublicRoute = ({
     )
 }
 
-PublicRoute.propTypes = {
-   isAuthenticated: PropTypes.bool.isRequired,
-   component: PropTypes.func.isRequired
-}

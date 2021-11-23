@@ -31,6 +31,7 @@ export const AppRouter = () => {
                         path="/" 
                         component={ DashboardRoutes } 
                         isAuthenticated={ user.logged }
+                        permisos={user.permisos}
                     />
                 </Switch>
             </div>

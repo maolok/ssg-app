@@ -1,41 +1,45 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { Link, NavLink, useHistory,useParams } from 'react-router-dom';
 import pdf from '../../estaticos/pdf.png'; 
 import excel from '../../estaticos/excel.png'; 
-import word from '../../estaticos/word.png'; 
+import word from '../../estaticos/word.png';
+import document from '../../estaticos/documento.png';
+import axios from 'axios';
+
 
 export const DocumentacionPorEmpleado = () => {
 
     
+    const [empleadodocumentos,setempleadodocumentos] = useState([]);
+    let { nombre,id } = useParams();
 
-    let { nombre,cc } = useParams();
+    let token = localStorage.getItem("token");
+        useEffect(() => {
+            axios({
+
+                method: "get",
+                url: "http://192.34.58.242:8080/sg-sst/documentos_empleado/id_empleado/"+id,
+                headers : {Authorization:token}
+              })
+                .then(function (response) {
+                 console.log(response.data.Datos);
+        
+                  if (response.data.Codigo == 1){
+                         setempleadodocumentos(response.data.Datos);  
+                  }
+                    
+                })
+                .catch(function (response) {
+                  //handle error
+                  console.log("fail");
+                  alert("Error conectando al Servidor");
+                  
+                });
+          },[]);
 
     // peticion buscar documentacion por cedula o preguntar si mejor por id
 
-    const data = [
-        {
-            id : 1,
-            nombreDocumento: "hojadevida.pdf",
-            ruta : "/xas"
-        },
-        {
-            id: 2,
-            nombreDocumento: "otrodocumento.xlsx",
-            ruta : "/asd"
-
-        },
-        {
-            id: 3,
-            nombreDocumento: "word.docx",
-            ruta : "/sdad"
-
-        },{
-            id: 4,
-            nombreDocumento: "pdf.pdf",
-            ruta : "/asds"
-
-        }
-    ]
+    
 
     const eliminarDocumento = (doc)=>{
         alert("peticio borrar documento"+doc);
@@ -52,7 +56,7 @@ export const DocumentacionPorEmpleado = () => {
     return (
         <div>
             <h1>Documentacion de {nombre} </h1>
-            <h3>Cedula {cc}</h3>
+            <h3>ID {id}</h3>
             <hr/>
 
         
@@ -73,17 +77,19 @@ export const DocumentacionPorEmpleado = () => {
 </thead>
 <tbody>
     {
-        data.map((documento) => {
+        empleadodocumentos.map((documento) => {
   
             let logo;
-            if (documento.nombreDocumento.includes("pdf")){
+            if (documento.nombre_archivo.includes("pdf")){
                  logo = pdf;
-            }else if (documento.nombreDocumento.includes("xlsx"))
+            }else if (documento.nombre_archivo.includes("xlsx"))
             {
                 logo = excel;
-            }else if (documento.nombreDocumento.includes("docx"))
+            }else if (documento.nombre_archivo.includes("docx"))
             {
                 logo = word;
+            }else{
+                logo = document;
             }
 
             
@@ -93,7 +99,7 @@ export const DocumentacionPorEmpleado = () => {
               <td >
               
               <img style={iconos} src={logo}/>
-              <button class="btn"><b>{" "+documento.nombreDocumento}</b></button>
+              <button class="btn"><b>{" "+documento.nombre_archivo}</b></button>
 
               </td>
 
