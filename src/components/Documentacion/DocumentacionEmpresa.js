@@ -1,41 +1,95 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
+import { Link, NavLink, useHistory,useParams } from 'react-router-dom';
 import pdf from '../../estaticos/pdf.png'; 
 import excel from '../../estaticos/excel.png'; 
-import word from '../../estaticos/word.png'; 
+import word from '../../estaticos/word.png';
+import document from '../../estaticos/documento.png';
+import axios from 'axios';
+import { ModalCargarDoc } from './ModalCargarDoc';
 
 export const DocumentacionEmpresa = () => {
 
-    // peticion get documentacion empresa
+    const [empresadocumentos,setempresadocumentos] = useState([]);
+    const [modalcargar,setmodalcargar] = useState(false);
 
-    const data = [
-        {
-            id : 1,
-            nombreDocumento: "Politica SSG-SST.pdf",
-            ruta : "/xas"
-        },
-        {
-            id: 2,
-            nombreDocumento: "plan de emergencia.xlsx",
-            ruta : "/asd"
 
-        },
-        {
-            id: 3,
-            nombreDocumento: "riesgos psicosociales.docx",
-            ruta : "/sdad"
-
-        },{
-            id: 4,
-            nombreDocumento: "otro.pdf",
-            ruta : "/asds"
-
-        }
+    const Documentos = [{
+        id : 1,
+        descripcion : "RUT"
+      },
+      {
+        id : 2,
+        descripcion : "Certificado Tributario"
+      },
+      {
+        id : 3,
+        descripcion : "Certificado Fiscal"
+      },
+      {
+        id : 4,
+        descripcion : "Otro Documento"
+      }
+      
     ]
 
-    const eliminarDocumento = (doc)=>{
-        alert("peticio borrar documento"+doc);
+    let token = localStorage.getItem("token");
+        useEffect(() => {
+            axios({
 
-    }
+                method: "get",
+                url: "http://192.34.58.242:8080/sg-sst/documentos_empresa",
+                headers : {Authorization:token}
+              })
+                .then(function (response) {
+                 console.log(response.data.Datos);
+        
+                  if (response.data.Codigo == 1){
+                         setempresadocumentos(response.data.Datos);  
+                  }
+                    
+                })
+                .catch(function (response) {
+                  //handle error
+                  console.log("fail");
+                  alert("Error conectando al Servidor");
+                  
+                });
+          },[]);
+
+
+          const handleDeleteFile = (iddelete) => {
+
+            axios({
+        
+              method: "delete",
+              url: "http://192.34.58.242:8080/sg-sst/documentos_empresa/"+iddelete,
+              headers : {Authorization:token}
+            })
+              .then(function (response) {
+               //console.log(response.data.Datos);
+        
+                if (response.data.Codigo == 1){
+                   alert("archivo borrado!");
+                   window.location.reload(false);
+                 }
+                  
+              })
+              .catch(function (response) {
+                //handle error
+                console.log("fail");
+                alert("Error conectando al Servidor");
+                
+              });
+          }
+
+          const handleModal = (modalstate,reload) => {
+            setmodalcargar(modalstate);
+        
+            if(reload){
+              window.location.reload(false);
+            }
+          }
+    
 
     const iconos = {
         
@@ -52,7 +106,7 @@ export const DocumentacionEmpresa = () => {
         
                    <div className="d-flex justify-content-end" >
 
-                    <button className="btn btn-info ">Cargar Documento</button>
+                    <button className="btn btn-info"  onClick={() => {setmodalcargar(true)}}>Cargar Documento</button>
 
                    </div>
                    <br/>
@@ -67,15 +121,15 @@ export const DocumentacionEmpresa = () => {
 </thead>
 <tbody>
     {
-        data.map((documento) => {
+        empresadocumentos.map((documento) => {
   
             let logo;
-            if (documento.nombreDocumento.includes("pdf")){
+            if (documento.nombre_archivo.includes("pdf")){
                  logo = pdf;
-            }else if (documento.nombreDocumento.includes("xlsx"))
+            }else if (documento.nombre_archivo.includes("xlsx"))
             {
                 logo = excel;
-            }else if (documento.nombreDocumento.includes("docx"))
+            }else if (documento.nombre_archivo.includes("docx"))
             {
                 logo = word;
             }
@@ -87,13 +141,13 @@ export const DocumentacionEmpresa = () => {
               <td >
               
               <img style={iconos} src={logo}Empleados/>
-              <button class="btn"><b>{" "+documento.nombreDocumento}</b></button>
+              <button class="btn"><b>{" "+documento.nombre_archivo}</b></button>
 
               </td>
 
               <td >
               
-              <button className="btn" ><i class="fa fa-trash"></i><b>Eliminar</b></button>
+              <button className="btn" onClick={() => handleDeleteFile(documento.id)}><i class="fa fa-trash"></i><b>Eliminar</b></button>
 
               </td>
 
@@ -110,7 +164,21 @@ export const DocumentacionEmpresa = () => {
 
   
 </tbody>
-</table>  
+</table> 
+{
+    modalcargar ? <ModalCargarDoc
+    
+    
+    id={"nn"}
+    nombre={"nn"}
+    modalstate={handleModal}
+    tiposdocumentos={Documentos}
+    path={"documentos_empresa"}
+    cargarconid={false}
+
+    
+    /> : ""
+} 
 
 </div>
 

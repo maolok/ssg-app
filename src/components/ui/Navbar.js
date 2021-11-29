@@ -1,3 +1,4 @@
+import { Dropdown } from 'bootstrap';
 import React, { useContext } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../auth/AuthContext';
@@ -58,19 +59,9 @@ export const Navbar = () => {
                         </button>  
                     </NavLink>
 
-                        
+                    
 
-                    <NavLink 
-                        activeClassName="active"
-                        className="nav-item nav-link" 
-                        exact
-                        to="/comites"
-                    >
-                        <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Comites
-                        </button>  
-                        
-                    </NavLink>
+                    
 
                     <NavLink 
                         activeClassName="active"

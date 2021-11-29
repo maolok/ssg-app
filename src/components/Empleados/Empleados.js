@@ -4,6 +4,7 @@ import { AsignarUsuario } from './AsignarUsuario';
 import { Modalview } from './Modal';
 import { ModalEditar } from './ModalEditar';
 import axios from 'axios';
+import { Spinner } from '../utils/Spinner';
 
 
 export const Empleados = () => {
@@ -12,6 +13,8 @@ export const Empleados = () => {
     const [modaleditar, setmodaleditar] = useState(false);
     const [user, setuser] = useState({});
     const [empleadosdata,setempleadosdata] = useState([]);
+    const [spiner,setspiner] = useState(true);
+
 
 
     const handleDelete = (userdata)=>{
@@ -39,6 +42,7 @@ export const Empleados = () => {
         
                   if (response.data.Codigo == 1){
                          setempleadosdata(response.data.Datos);  
+                         setspiner(false);
                   }
                     
                 })
@@ -56,6 +60,9 @@ export const Empleados = () => {
     return (
         <div>
             <h1>Empleados</h1>
+            
+            {spiner ? <Spinner/>:""}
+
             <Link 
                         activeClassName="active"
                         className="d-flex justify-content-end" 

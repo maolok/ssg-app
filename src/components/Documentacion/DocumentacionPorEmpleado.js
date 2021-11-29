@@ -5,13 +5,70 @@ import excel from '../../estaticos/excel.png';
 import word from '../../estaticos/word.png';
 import document from '../../estaticos/documento.png';
 import axios from 'axios';
+import { ModalCargarDoc } from './ModalCargarDoc';
 
 
 export const DocumentacionPorEmpleado = () => {
 
     
     const [empleadodocumentos,setempleadodocumentos] = useState([]);
+    const [modalcargar,setmodalcargar] = useState(false);
+
+
+    
+
     let { nombre,id } = useParams();
+
+    const Documentos = [{
+      id : 1,
+      descripcion : "Curso 50 Horas"
+    },
+    {
+      id : 2,
+      descripcion : "Cedula"
+    },
+    {
+      id : 3,
+      descripcion : "Certficado Salud"
+    },
+    {
+      id : 4,
+      descripcion : "Responsabilidades"
+    }
+    
+  ]
+  const handleModal = (modalstate,reload) => {
+    setmodalcargar(modalstate);
+
+    if(reload){
+      window.location.reload(false);
+    }
+  }
+
+  const handleDeleteFile = (iddelete) => {
+
+    axios({
+
+      method: "delete",
+      url: "http://192.34.58.242:8080/sg-sst/documentos_empleado/"+iddelete,
+      headers : {Authorization:token}
+    })
+      .then(function (response) {
+       //console.log(response.data.Datos);
+
+        if (response.data.Codigo == 1){
+           alert("archivo borrado!");
+           window.location.reload(false);
+         }
+          
+      })
+      .catch(function (response) {
+        //handle error
+        console.log("fail");
+        alert("Error conectando al Servidor");
+        
+      });
+  }
 
     let token = localStorage.getItem("token");
         useEffect(() => {
@@ -22,7 +79,7 @@ export const DocumentacionPorEmpleado = () => {
                 headers : {Authorization:token}
               })
                 .then(function (response) {
-                 console.log(response.data.Datos);
+                 //console.log(response.data.Datos);
         
                   if (response.data.Codigo == 1){
                          setempleadodocumentos(response.data.Datos);  
@@ -37,14 +94,6 @@ export const DocumentacionPorEmpleado = () => {
                 });
           },[]);
 
-    // peticion buscar documentacion por cedula o preguntar si mejor por id
-
-    
-
-    const eliminarDocumento = (doc)=>{
-        alert("peticio borrar documento"+doc);
-
-    }
 
     const iconos = {
         
@@ -62,7 +111,7 @@ export const DocumentacionPorEmpleado = () => {
         
                    <div className="d-flex justify-content-end" >
 
-                    <button className="btn btn-info ">Cargar Documento</button>
+                    <button className="btn btn-info" onClick={() => {setmodalcargar(true)}}>Cargar Documento</button>
 
                    </div>
                    <br/>
@@ -72,7 +121,7 @@ export const DocumentacionPorEmpleado = () => {
   <tr>
     
     <th scope="col">Documentos</th>
-    <th scope="col">Accion</th>
+    <th scope="col">Eliminar</th>
   </tr>
 </thead>
 <tbody>
@@ -94,21 +143,21 @@ export const DocumentacionPorEmpleado = () => {
 
             
           return(
-              <tr>
+              <tr key={documento.id}>
               
-              <td >
+              <td>
               
               <img style={iconos} src={logo}/>
-              <button class="btn"><b>{" "+documento.nombre_archivo}</b></button>
+              <button className="btn"><b>{" "+documento.nombre_archivo}</b></button>
 
               </td>
+              
 
               <td >
               
-              <button className="btn" ><i class="fa fa-trash"></i><b>Eliminar</b></button>
+              <button className="btn"  onClick={() => handleDeleteFile(documento.id)}><i className="fa fa-trash" ></i><b>Eliminar</b></button>
 
               </td>
-
 
               </tr>
               )
@@ -123,9 +172,22 @@ export const DocumentacionPorEmpleado = () => {
   
 </tbody>
 </table>  
+{
+    modalcargar ? <ModalCargarDoc
+    
+    
+    id={id}
+    nombre={nombre}
+    modalstate={handleModal}
+    tiposdocumentos={Documentos}
+    path={"documentos_empleado"}
+    cargarconid={true}
+
+    
+    /> : ""
+}
+
 
 </div>
-
-
     )
 }
