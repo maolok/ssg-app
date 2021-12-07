@@ -18,6 +18,7 @@ import { Quejas } from '../components/quejas/Quejas';
 import { Matrices } from '../components/matrices/Matrices';
 import { EditarEmpleado } from '../components/Empleados/EditarEmpleado';
 import { CrearProveedor } from '../components/proveedores/CrearProveedor';
+import { EditarProveedor } from '../components/proveedores/EditarProveedor';
 
 export const DashboardRoutes = () => {
     
@@ -33,7 +34,7 @@ export const DashboardRoutes = () => {
                     <Route exact path="/documentacion/empresa" component={ DocumentacionEmpresa } />
                     <Route exact path="/documentacion/proveedores" component={ DocumentacionProveedores} />
                     <Route exact path="/documentacion/empleado/:nombre/:id" component={ DocumentacionPorEmpleado} />
-                    <Route exact path="/documentacion/empresa/:nombre/:nit" component={ DocumentacionPorProveedor} />
+                    <Route exact path="/documentacion/proveedor/:nombre/:id" component={ DocumentacionPorProveedor} />
                     <Route exact path="/empleados/crear" component={ CrearEmpleado } />
                     <Route exact path="/empleados/editar/:cc/:id" component={ EditarEmpleado } />
                     <Route exact path="/asignarusuario" component={ CrearEmpleado } />
@@ -42,6 +43,7 @@ export const DashboardRoutes = () => {
                     <Route exact path="/reportes" component={ Reportes } />
                     <Route exact path="/proveedores" component={ Proveedores } />
                     <Route exact path="/proveedores/crear" component={ CrearProveedor } />
+                    <Route exact path="/proveedores/editar/:nombre/:id" component={ EditarProveedor } />
                     <Route exact path="/parametros" component={ Parametros } />
                     <Route exact path="/quejas" component={ Quejas } />
                     <Route exact path="/matrices" component={ Matrices } />

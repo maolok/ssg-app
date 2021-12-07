@@ -5,8 +5,9 @@ import { Spinner } from '../utils/Spinner';
 
 
 export const Proveedores = () => {
-    const [proveedores,setproveedores] = useState([]);
     const [spiner,setspiner] = useState(true);
+    const [proveedores,setproveedores] = useState([]);
+
 
     let token = localStorage.getItem("token");
         useEffect(() => {
@@ -22,6 +23,9 @@ export const Proveedores = () => {
                   if (response.data.Codigo == 1){
                          setproveedores(response.data.Datos);  
                          setspiner(false);
+                  }else if(response.data.Codigo == 2){
+                    setspiner(false);
+                    alert("no hay datos en la consulta");
                   }
                     
                 })
@@ -75,7 +79,7 @@ export const Proveedores = () => {
                         <Link 
                         className="navbar-brand" 
                         to={{
-                            pathname: "/empleados/editar/"+proveedor.identificacion+"/"+proveedor.id
+                            pathname: "/proveedores/editar/"+proveedor.razon_social+"/"+proveedor.id
                         }}
                         >
                         <button className="btn" ><i class="fa fa-pencil"></i><b>Editar</b></button>
@@ -100,7 +104,7 @@ export const Proveedores = () => {
                     <Link 
                     className="navbar-brand" 
                     to={{
-                        pathname: "/documentacion/empleado/"+proveedor.primer_nombre+" "+proveedor.primer_apellido+"/"+proveedor.id,
+                        pathname: "/documentacion/proveedor/"+proveedor.razon_social+"/"+proveedor.id
                     }}
                     >
                         <button class="btn"><i class="fa fa-folder"></i><b>Documentos</b></button>

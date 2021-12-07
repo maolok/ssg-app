@@ -5,6 +5,8 @@ import { Modalview } from './Modal';
 import { ModalEditar } from './ModalEditar';
 import axios from 'axios';
 import { Spinner } from '../utils/Spinner';
+import { Route, Redirect } from 'react-router-dom';
+
 
 
 export const Empleados = () => {
@@ -17,9 +19,29 @@ export const Empleados = () => {
 
 
 
-    const handleDelete = (userdata)=>{
-        //peticion para borrar empleado
-        alert(userdata.id);
+    const handleDelete = (idempleado)=>{
+        
+        axios({
+        
+            method: "delete",
+            url: "http://192.34.58.242:8080/sg-sst/empleado/"+idempleado,
+            headers : {Authorization:token}
+          })
+            .then(function (response) {
+             //console.log(response.data.Datos);
+      
+              if (response.data.Codigo == 1){
+                 alert("Empleado borrado!");
+                 window.location.reload(false);
+               }
+                
+            })
+            .catch(function (response) {
+              //handle error
+              console.log("fail");
+              alert("Error conectando al Servidor");
+              
+            });
     }
     const handleModal = (modalstate) => {
         setmodal(modalstate);
@@ -43,6 +65,9 @@ export const Empleados = () => {
                   if (response.data.Codigo == 1){
                          setempleadosdata(response.data.Datos);  
                          setspiner(false);
+                  }else if(response.data.Codigo == 2){
+                    setspiner(false);
+                    alert("no hay datos en la consulta");
                   }
                     
                 })
@@ -127,7 +152,7 @@ export const Empleados = () => {
                     <td>
                     
                      
-                    <button className="btn" onClick={handleDelete}><i class="fa fa-trash"></i><b>Eliminar</b></button>
+                    <button className="btn" onClick={() => handleDelete(usuario.id)}><i class="fa fa-trash"></i><b>Eliminar</b></button>
                     
                     
                     </td>

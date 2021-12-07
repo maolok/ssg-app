@@ -1,12 +1,16 @@
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import React,{useEffect,useState} from 'react'
 import axios from 'axios';
+import { Spinner } from '../utils/Spinner';
+
+
 
 
 
 export const DocumentacionEmpleados = () => {
 
   const [empleadosdata,setempleadosdata] = useState([]);
+  const [spiner,setspiner] = useState(true);
 
 
   let token = localStorage.getItem("token");
@@ -21,7 +25,9 @@ export const DocumentacionEmpleados = () => {
                  console.log(response.data.Datos);
         
                   if (response.data.Codigo == 1){
-                         setempleadosdata(response.data.Datos);  
+                         setempleadosdata(response.data.Datos);
+                         setspiner(false);
+  
                   }
                     
                 })
@@ -41,6 +47,8 @@ export const DocumentacionEmpleados = () => {
     return (
         <div>
             <h1>Documentacion-Empleados</h1>
+            {spiner ? <Spinner/>:""}
+
             <hr/>
 
             <table className="table">

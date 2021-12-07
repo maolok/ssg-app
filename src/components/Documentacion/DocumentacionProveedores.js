@@ -1,11 +1,15 @@
 import React,{useEffect,useState} from 'react'
 import { Link, NavLink, useHistory,useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Spinner } from '../utils/Spinner';
+
 
 
 export const DocumentacionProveedores = () => {
 
   const [proveedores,setproveedores] = useState([]);
+  const [spiner,setspiner] = useState(true);
+
     //peticion a proveedores
     
     let token = localStorage.getItem("token");
@@ -20,7 +24,12 @@ export const DocumentacionProveedores = () => {
                  console.log(response.data.Datos);
         
                   if (response.data.Codigo == 1){
-                         setproveedores(response.data.Datos);  
+                         setproveedores(response.data.Datos);
+                         setspiner(false);
+  
+                  }else if(response.data.Codigo == 2){
+                    setspiner(false);
+                    alert("no hay datos en la consulta");
                   }
                     
                 })
@@ -35,6 +44,8 @@ export const DocumentacionProveedores = () => {
     return (
         <div>
             <h1>Documentacion-Proveedores</h1>
+            {spiner ? <Spinner/>:""}
+
             <hr/>
 
             <table className="table">
@@ -56,7 +67,7 @@ export const DocumentacionProveedores = () => {
                 <Link 
                 className="navbar-brand" 
                 to={{
-                    pathname: "/documentacion/empresa/"+proveedor.razon_social+"/"+proveedor.id
+                    pathname: "/documentacion/proveedor/"+proveedor.razon_social+"/"+proveedor.id
                 }}
                 >
                     <button class="btn"><i class="fa fa-folder"></i><b>{" "+proveedor.razon_social}</b></button>

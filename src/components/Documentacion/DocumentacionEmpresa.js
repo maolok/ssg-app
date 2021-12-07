@@ -6,11 +6,16 @@ import word from '../../estaticos/word.png';
 import document from '../../estaticos/documento.png';
 import axios from 'axios';
 import { ModalCargarDoc } from './ModalCargarDoc';
+import { Spinner } from '../utils/Spinner';
+
+
 
 export const DocumentacionEmpresa = () => {
 
     const [empresadocumentos,setempresadocumentos] = useState([]);
     const [modalcargar,setmodalcargar] = useState(false);
+    const [spiner,setspiner] = useState(true);
+
 
 
     const Documentos = [{
@@ -44,7 +49,9 @@ export const DocumentacionEmpresa = () => {
                  console.log(response.data.Datos);
         
                   if (response.data.Codigo == 1){
-                         setempresadocumentos(response.data.Datos);  
+                         setempresadocumentos(response.data.Datos);
+                         setspiner(false);
+  
                   }
                     
                 })
@@ -101,6 +108,7 @@ export const DocumentacionEmpresa = () => {
     return (
         <div>
             <h1>Documentacion-Empresa</h1>
+            {spiner ? <Spinner/>:""}
             <hr/>
 
         
@@ -132,6 +140,8 @@ export const DocumentacionEmpresa = () => {
             }else if (documento.nombre_archivo.includes("docx"))
             {
                 logo = word;
+            }else{
+              logo = document;
             }
 
             

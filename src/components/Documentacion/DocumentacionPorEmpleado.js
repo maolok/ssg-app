@@ -6,6 +6,7 @@ import word from '../../estaticos/word.png';
 import document from '../../estaticos/documento.png';
 import axios from 'axios';
 import { ModalCargarDoc } from './ModalCargarDoc';
+import { Spinner } from '../utils/Spinner';
 
 
 export const DocumentacionPorEmpleado = () => {
@@ -13,9 +14,8 @@ export const DocumentacionPorEmpleado = () => {
     
     const [empleadodocumentos,setempleadodocumentos] = useState([]);
     const [modalcargar,setmodalcargar] = useState(false);
+    const [spiner,setspiner] = useState(true);
 
-
-    
 
     let { nombre,id } = useParams();
 
@@ -82,8 +82,14 @@ export const DocumentacionPorEmpleado = () => {
                  //console.log(response.data.Datos);
         
                   if (response.data.Codigo == 1){
-                         setempleadodocumentos(response.data.Datos);  
+                    setempleadodocumentos(response.data.Datos); 
+                    setspiner(false);
+ 
+                  }else if(response.data.Codigo == 2){
+                    setspiner(false);
+                    alert("no hay datos en la consulta");
                   }
+                    
                     
                 })
                 .catch(function (response) {
@@ -106,6 +112,7 @@ export const DocumentacionPorEmpleado = () => {
         <div>
             <h1>Documentacion de {nombre} </h1>
             <h3>ID {id}</h3>
+            {spiner ? <Spinner/>:""}
             <hr/>
 
         
